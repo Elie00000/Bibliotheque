@@ -75,7 +75,7 @@ def enregistrer_client():
     return redirect('/consultation/')  # Rediriger vers la page d'accueil après l'enregistrement
 
 # Ajout des nouvelles routes pour gérer les livres
-@app.route('/livres', methods=['GET'])
+@app.route('/livres/', methods=['GET'])
 def get_livres():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
