@@ -84,17 +84,20 @@ def get_livres():
     conn.close()
     return render_template('livres.html', livres=livres)
 
+@app.route('/livres_a', methods=['GET'])
+def a_livres():
+    return render_template('ajouter_livre.html')  # afficher le formulaire
+
 @app.route('/livres_a', methods=['POST'])
 def ajouter_livre():
     titre = request.form['titre']
     auteur = request.form['auteur']
-
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute('INSERT INTO livres (titre, auteur) VALUES (?, ?)', (titre, auteur))
     conn.commit()
     conn.close()
-    return redirect('/livres')
+    return redirect('/livres/')
 
 @app.route('/livres/<int:id>', methods=['DELETE'])
 def supprimer_livre(id):
