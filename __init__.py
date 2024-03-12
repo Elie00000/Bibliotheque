@@ -84,7 +84,7 @@ def get_livres():
     conn.close()
     return render_template('livres.html', livres=livres)
 
-@app.route('/livres', methods=['POST'])
+@app.route('/livres_a', methods=['POST'])
 def ajouter_livre():
     titre = request.form['titre']
     auteur = request.form['auteur']
