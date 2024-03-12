@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Livres disponibles</title>
+</head>
+<body>
+    <h1>Livres disponibles</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>Disponible</th>
+        </tr>
+        {% for livre in livres %}
+        <tr>
+            <td>{{ livre.id }}</td>
+            <td>{{ livre.titre }}</td>
+            <td>{{ livre.auteur }}</td>
+            <td>{{ 'Oui' if livre.disponible else 'Non' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

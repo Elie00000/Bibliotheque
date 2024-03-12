@@ -1,11 +1,9 @@
-from flask import Flask, render_template_string, render_template, jsonify, request, redirect, url_for, session
-from flask import render_template
-from flask import json
+from flask import Flask, render_template, jsonify, request, redirect, url_for, session
 from urllib.request import urlopen
 import sqlite3
 
-app = Flask(__name__)                                                                                                                  
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # Clé secrète pours les sessions
+app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # Clé secrète pour les sessions
 
 # Fonction pour créer une clé "authentifie" dans la session utilisateur
 def est_authentifie():
@@ -75,6 +73,67 @@ def enregistrer_client():
     conn.commit()
     conn.close()
     return redirect('/consultation/')  # Rediriger vers la page d'accueil après l'enregistrement
-                                                                                                                                       
+
+# Ajout des nouvelles routes pour gérer les livres
+@app.route('/livres', methods=['GET'])
+def get_livres():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM livres;')
+    livres = cursor.fetchall()
+    conn.close()
+    return render_template('livres.html', livres=livres)
+
+@app.route('/livres', methods=['POST'])
+def ajouter_livre():
+    titre = request.form['titre']
+    auteur = request.form['auteur']
+
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO livres (titre, auteur) VALUES (?, ?)', (titre, auteur))
+    conn.commit()
+    conn.close()
+    return redirect('/livres')
+
+@app.route('/livres/<int:id>', methods=['DELETE'])
+def supprimer_livre(id):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM livres WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect('/livres')
+
+@app.route('/livres/<int:id>', methods=['PUT'])
+def modifier_livre(id):
+    titre = request.form['titre']
+    auteur = request.form['auteur']
+
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('UPDATE livres SET titre = ?, auteur = ? WHERE id = ?', (titre, auteur, id))
+    conn.commit()
+    conn.close()
+    return redirect('/livres')
+
+@app.route('/emprunt/<int:id>', methods=['POST'])
+def emprunter_livre(id):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('UPDATE livres SET disponible = 0 WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect('/livres')
+
+@app.route('/retour/<int:id>', methods=['POST'])
+def retourner_livre(id):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('UPDATE livres SET disponible = 1 WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect('/livres')
+
 if __name__ == "__main__":
   app.run(debug=True)
