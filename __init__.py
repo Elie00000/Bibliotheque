@@ -100,7 +100,24 @@ def ajouter_livre():
     conn.close()
     return redirect('/livres/')
 
-@app.route('/livres/<int:id>', methods=['DELETE'])
+@app.route('/livres/<int:id>/modifier', methods=['GET', 'POST'])
+def modifier_livre(id):
+    if request.method == 'POST':
+        titre = request.form['titre']
+        auteur = request.form['auteur']
+
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        cursor.execute('UPDATE livres SET titre = ?, auteur = ? WHERE id = ?', (titre, auteur, id))
+        conn.commit()
+        conn.close()
+        return redirect('/livres')
+
+    # Si la méthode est GET, affichez le formulaire de modification
+    # Vous devrez créer une page HTML pour cela
+    return render_template('modifier_livre.html', id=id)
+
+@app.route('/livres/<int:id>/supprimer', methods=['POST'])
 def supprimer_livre(id):
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
@@ -109,17 +126,6 @@ def supprimer_livre(id):
     conn.close()
     return redirect('/livres')
 
-@app.route('/livres/<int:id>', methods=['PUT'])
-def modifier_livre(id):
-    titre = request.form['titre']
-    auteur = request.form['auteur']
-
-    conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
-    cursor.execute('UPDATE livres SET titre = ?, auteur = ? WHERE id = ?', (titre, auteur, id))
-    conn.commit()
-    conn.close()
-    return redirect('/livres')
 
 @app.route('/emprunt/<int:id>', methods=['POST'])
 def emprunter_livre(id):
