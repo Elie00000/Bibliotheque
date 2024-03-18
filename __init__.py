@@ -160,7 +160,7 @@ def supprimer_livre(id):
 def emprunter_livre(id):
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
-    cursor.execute('UPDATE livres SET disponible = Non WHERE id = ?', (id,))
+    cursor.execute("UPDATE livres SET disponible = 'Non' WHERE id = ?", (id,))
     conn.commit()
     conn.close()
     return redirect('/livres')
@@ -169,7 +169,7 @@ def emprunter_livre(id):
 def retourner_livre(id):
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
-    cursor.execute('UPDATE livres SET disponible = Oui WHERE id = ?', (id,))
+    cursor.execute("UPDATE livres SET disponible = 'Oui' WHERE id = ?", (id,))
     conn.commit()
     conn.close()
     return redirect('/livres')
