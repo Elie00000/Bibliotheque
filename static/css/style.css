@@ -71,3 +71,12 @@ a {
     text-decoration: none;
     color: #007BFF;
 }
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
