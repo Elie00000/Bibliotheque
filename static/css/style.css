@@ -79,4 +79,7 @@ button {
     background-color: #007BFF;
     color: white;
     cursor: pointer;
+    display: block;
+    margin: auto;
 }
+
