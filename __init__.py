@@ -112,10 +112,7 @@ def modifier_livre(id):
         conn.commit()
         conn.close()
         return redirect('/livres')
-
-    # Si la méthode est GET, affichez le formulaire de modification
-    # Vous devrez créer une page HTML pour cela
-    return render_template('modifier_livre.html', id=id)
+    return render_template('modifier.html', id=id)
 
 @app.route('/livres/<int:id>/supprimer', methods=['POST'])
 def supprimer_livre(id):
