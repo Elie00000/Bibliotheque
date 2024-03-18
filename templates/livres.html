@@ -12,12 +12,13 @@
             <th>Auteur</th>
             <th>Disponible</th>
         </tr>
-        {% for livre in livres %}
+        {% for row in livres %}
         <tr>
-            <td>{{ livre.id }}</td>
-            <td>{{ livre.titre }}</td>
-            <td>{{ livre.auteur }}</td>
-            <td>{{ livre.disponible }}</td>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            
         </tr>
         {% endfor %}
     </table>
