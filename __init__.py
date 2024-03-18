@@ -39,6 +39,9 @@ def authentification():
 
 @app.route('/fiche_client/<int:post_id>')
 def Readfiche(post_id):
+    if not est_authentifie():
+        # Rediriger vers la page d'authentification si l'utilisateur n'est pas authentifié
+        return redirect(url_for('authentification'))
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM clients WHERE id = ?', (post_id,))
@@ -49,6 +52,9 @@ def Readfiche(post_id):
 
 @app.route('/consultation/')
 def ReadBDD():
+    if not est_authentifie():
+        # Rediriger vers la page d'authentification si l'utilisateur n'est pas authentifié
+        return redirect(url_for('authentification'))
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM clients;')
@@ -58,10 +64,16 @@ def ReadBDD():
 
 @app.route('/enregistrer_client', methods=['GET'])
 def formulaire_client():
+    if not est_authentifie():
+        # Rediriger vers la page d'authentification si l'utilisateur n'est pas authentifié
+        return redirect(url_for('authentification'))
     return render_template('formulaire.html')  # afficher le formulair
 
 @app.route('/enregistrer_client', methods=['POST'])
 def enregistrer_client():
+    if not est_authentifie():
+        # Rediriger vers la page d'authentification si l'utilisateur n'est pas authentifié
+        return redirect(url_for('authentification'))
     nom = request.form['nom']
     prenom = request.form['prenom']
 
@@ -87,10 +99,16 @@ def get_livres():
 
 @app.route('/livres_a', methods=['GET'])
 def a_livres():
+    if not est_authentifie():
+        # Rediriger vers la page d'authentification si l'utilisateur n'est pas authentifié
+        return redirect(url_for('authentification'))
     return render_template('ajouter_livre.html')  # afficher le formulaire
 
 @app.route('/livres_a', methods=['POST'])
 def ajouter_livre():
+    if not est_authentifie():
+        # Rediriger vers la page d'authentification si l'utilisateur n'est pas authentifié
+        return redirect(url_for('authentification'))
     titre = request.form['titre']
     auteur = request.form['auteur']
     conn = sqlite3.connect('database.db')
@@ -102,6 +120,9 @@ def ajouter_livre():
 
 @app.route('/livres/<int:id>/modifier', methods=['GET', 'POST'])
 def modifier_livre(id):
+    if not est_authentifie():
+        # Rediriger vers la page d'authentification si l'utilisateur n'est pas authentifié
+        return redirect(url_for('authentification'))
     if request.method == 'POST':
         titre = request.form['titre']
         auteur = request.form['auteur']
@@ -116,6 +137,9 @@ def modifier_livre(id):
 
 @app.route('/livres/<int:id>/supprimer', methods=['POST'])
 def supprimer_livre(id):
+    if not est_authentifie():
+        # Rediriger vers la page d'authentification si l'utilisateur n'est pas authentifié
+        return redirect(url_for('authentification'))
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute('DELETE FROM livres WHERE id = ?', (id,))
