@@ -25,9 +25,11 @@
                 <a href="/livres/{{ row[0] }}/modifier">
                     <img src="../static/img/icon_modifier.png" alt="Modifier">
                 </a>
-                <a href="/livres/{{ row[0] }}/supprimer">
-                    <img src="../static/img/icon_supprimer.png" alt="Supprimer">
-                </a>
+                <form action="/livres/{{ row[0] }}/supprimer" method="POST" style="display: inline;">
+                    <button type="submit">
+                        <img src="../static/img/icon_supprimer.png" alt="Supprimer">
+                    </button>
+                </form>
             </td>
         </tr>
         
