@@ -1,8 +1,7 @@
-<!DOCTYPE>
-<html lang="fr">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Livres</title>
+    <title>Livres disponibles</title>
 </head>
 <body>
     <h1>Livres disponibles</h1>
@@ -13,12 +12,12 @@
             <th>Auteur</th>
             <th>Disponible</th>
         </tr>
-        {% for row in data %}
+        {% for livre in livres %}
         <tr>
-            <td>{{ row[0] }}</td>
-            <td>{{ row[1] }}</td>
-            <td>{{ row[2] }}</td>
-            <td>{{ row[3] }}</td>
+            <td>{{ livre.id }}</td>
+            <td>{{ livre.titre }}</td>
+            <td>{{ livre.auteur }}</td>
+            <td>{{ livre.disponible }}</td>
         </tr>
         {% endfor %}
     </table>
