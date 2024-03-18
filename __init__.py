@@ -13,14 +13,16 @@ def est_authentifie():
 def hello_world():
     return render_template('hello.html')
 
+
 @app.route('/lecture')
 def lecture():
     if not est_authentifie():
         # Rediriger vers la page d'authentification si l'utilisateur n'est pas authentifié
         return redirect(url_for('authentification'))
 
-  # Si l'utilisateur est authentifié
-    return "<h2>Bravo, vous êtes authentifié</h2>"
+    # Si l'utilisateur est authentifié
+    return render_template('message.html')
+
 
 @app.route('/authentification', methods=['GET', 'POST'])
 def authentification():
