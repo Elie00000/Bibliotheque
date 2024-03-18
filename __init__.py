@@ -9,6 +9,14 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # Clé secrète pour les sessions
 def est_authentifie():
     return session.get('authentifie')
 
+@app.route('/deconnexion')
+def deconnexion():
+    # Supprimer 'authentifie' de la session
+    session.pop('authentifie', None)
+    # Rediriger vers la page d'accueil
+    return redirect(url_for('hello_world'))
+
+
 @app.route('/')
 def hello_world():
     return render_template('hello.html')
