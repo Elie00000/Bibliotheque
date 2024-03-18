@@ -8,21 +8,30 @@
     <h1>Livres disponibles</h1>
     <table>
         <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>Disponible</th>
+        </tr>
+        {% for row in livres %}
+        <tr>
             <td>{{ row[0] }}</td>
             <td>{{ row[1] }}</td>
             <td>{{ row[2] }}</td>
             <td>{{ row[3] }}</td>
             <td>{{ row[4] }}</td>
             <td>
-                <a href="/livres/{{ row[5] }}/modifier">
+                <a href="/livres/{{ row[0] }}/modifier">
                     <img src="../static/img/icon_modifier.png" alt="Modifier">
                 </a>
-                <a href="/livres/{{ row[5] }}/supprimer">
+                <a href="/livres/{{ row[0] }}/supprimer">
                     <img src="../static/img/icon_supprimer.png" alt="Supprimer">
                 </a>
             </td>
         </tr>
         
+        {% endfor %}
     </table>
     <a href="/">
         <button>Page Home</button>
