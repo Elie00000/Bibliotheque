@@ -146,7 +146,7 @@ def modifier_livre(id):
 @app.route('/livres/<int:id>/supprimer', methods=['POST'])
 def supprimer_livre(id):
     if not est_authentifie():
-        # Rediriger vers la page d'authentification si l'utilisateur n'est pas authentifié
+        # Rediriger vers la page d'authntification si l'utilisateur n'est pas authentifié
         return redirect(url_for('authentification'))
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
